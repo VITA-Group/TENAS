@@ -1,6 +1,5 @@
 from pathlib import Path
-import warnings
-import os, sys, numpy as np
+import sys
 if sys.version_info.major == 2: # Python 2.x
     from StringIO import StringIO as BIO
 else:                           # Python 3.x

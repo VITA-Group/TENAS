@@ -1,5 +1,4 @@
 import os, sys, time, argparse
-from collections import OrderedDict
 import math
 import random
 from easydict import EasyDict as edict
@@ -388,7 +387,6 @@ def main(xargs):
                                    'multiplier': 4,
                                   })
     network = get_cell_based_tiny_net(model_config)
-    network_thin = get_cell_based_tiny_net(model_config_thin)
     logger.log('model-config : {:}'.format(model_config))
     arch_parameters = [alpha.detach().clone() for alpha in network.get_alphas()]
     for alpha in arch_parameters:
@@ -408,7 +406,6 @@ def main(xargs):
     logger.log('{:} create API = {:} done'.format(time_string(), api))
 
     network = network.cuda()
-    network_thin = network_thin.cuda()
 
     genotypes = {}; genotypes['arch'] = {-1: network.genotype()}
 

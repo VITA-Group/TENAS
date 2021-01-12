@@ -1,4 +1,4 @@
-import os, sys, hashlib, torch
+import os, sys, hashlib
 import numpy as np
 from PIL import Image
 import torch.utils.data as data
@@ -113,8 +113,8 @@ class ImageNet16(data.Dataset):
 
 
 if __name__ == '__main__':
-    train = ImageNet16('/data02/dongxuanyi/.torch/cifar.python/ImageNet16', True , None) 
-    valid = ImageNet16('/data02/dongxuanyi/.torch/cifar.python/ImageNet16', False, None) 
+    train = ImageNet16('/data02/dongxuanyi/.torch/cifar.python/ImageNet16', True , None)
+    valid = ImageNet16('/data02/dongxuanyi/.torch/cifar.python/ImageNet16', False, None)
 
     print ( len(train) )
     print ( len(valid) )

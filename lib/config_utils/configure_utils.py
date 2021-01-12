@@ -1,5 +1,5 @@
-import os, json
-from os import path as osp
+import os
+import json
 from pathlib import Path
 from collections import namedtuple
 
@@ -104,7 +104,7 @@ def configure2str(config, xpath=None):
     if xpath is not None:
         parent = Path(xpath).resolve().parent
         parent.mkdir(parents=True, exist_ok=True)
-        if osp.isfile(xpath): os.remove(xpath)
+        if os.path.isfile(xpath): os.remove(xpath)
         with open(xpath, "w") as text_file:
             text_file.write('{:}'.format(Fstring))
     return Fstring

@@ -1,4 +1,4 @@
-import os, sys, torch
+import torch
 import os.path as osp
 import numpy as np
 import torchvision.datasets as dset

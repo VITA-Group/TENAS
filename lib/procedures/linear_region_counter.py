@@ -172,8 +172,7 @@ class Linear_Region_Collector:
     def reinit(self, models=None, input_size=None, sample_batch=None, seed=None):
         if models is not None:
             assert isinstance(models, list)
-            for model in self.models:
-                del model
+            del self.models
             self.models = models
             for model in self.models:
                 self.register_hook(model)

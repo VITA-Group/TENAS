@@ -33,7 +33,6 @@ def get_ntk_n(xloader, networks, recalbn=0, train_mode=False, num_batch=-1):
     grads = [[] for _ in range(len(networks))]
     for i, (inputs, targets) in enumerate(xloader):
         if num_batch > 0 and i >= num_batch: break
-        targets = targets.cuda(device=device, non_blocking=True)
         inputs = inputs.cuda(device=device, non_blocking=True)
         for net_idx, network in enumerate(networks):
             network.zero_grad()

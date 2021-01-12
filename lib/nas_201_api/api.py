@@ -135,7 +135,7 @@ class NASBench201API(object):
       if use_12epochs_result: arch2infos = self.arch2infos_less
       else                  : arch2infos = self.arch2infos_full
       arch2infos[index].clear_params()
-  
+
   # This function is used to query the information of a specific archiitecture
   # 'arch' can be an architecture index or an architecture string
   # When use_12epochs_result=True, the hyper-parameters used to train a model are in 'configs/nas-benchmark/CIFAR.config'
@@ -297,7 +297,7 @@ class NASBench201API(object):
       valid_info = archresult.get_metrics(dataset, 'x-valid', iepoch=iepoch, is_random=is_random)
       try:
         test_info = archresult.get_metrics(dataset, 'ori-test', iepoch=iepoch, is_random=is_random)
-      except:
+      except Exception:
         test_info = None
       valtest_info = None
     else:
@@ -306,18 +306,18 @@ class NASBench201API(object):
           test_info = archresult.get_metrics(dataset, 'ori-test', iepoch=iepoch, is_random=is_random)
         else:
           test_info = archresult.get_metrics(dataset, 'x-test', iepoch=iepoch, is_random=is_random)
-      except:
+      except Exception:
         test_info = None
       try: # collect results on the proposed validation set
         valid_info = archresult.get_metrics(dataset, 'x-valid', iepoch=iepoch, is_random=is_random)
-      except:
+      except Exception:
         valid_info = None
       try:
         if dataset != 'cifar10':
           valtest_info = archresult.get_metrics(dataset, 'ori-test', iepoch=iepoch, is_random=is_random)
         else:
           valtest_info = None
-      except:
+      except Exception:
         valtest_info = None
     if valid_info is not None:
       xinfo['valid-loss'] = valid_info['loss']
@@ -416,18 +416,18 @@ class NASBench201API(object):
         print('\n'.join(strings))
         print('<' * 40 + '------------' + '<' * 40)
     else:
-      if 0 <= index < len(self.meta_archs):
-        if index not in self.evaluated_indexes: print('The {:}-th architecture has not been evaluated or not saved.'.format(index))
-        else:
-          strings = print_information(self.arch2infos_full[index])
-          print('>' * 40 + ' {:03d} epochs '.format(self.arch2infos_full[index].get_total_epoch()) + '>' * 40)
-          print('\n'.join(strings))
-          strings = print_information(self.arch2infos_less[index])
-          print('>' * 40 + ' {:03d} epochs '.format(self.arch2infos_less[index].get_total_epoch()) + '>' * 40)
-          print('\n'.join(strings))
-          print('<' * 40 + '------------' + '<' * 40)
+      # if 0 <= index < len(self.meta_archs):
+      if index not in self.evaluated_indexes: print('The {:}-th architecture has not been evaluated or not saved.'.format(index))
       else:
-        print('This index ({:}) is out of range (0~{:}).'.format(index, len(self.meta_archs)))
+        strings = print_information(self.arch2infos_full[index])
+        print('>' * 40 + ' {:03d} epochs '.format(self.arch2infos_full[index].get_total_epoch()) + '>' * 40)
+        print('\n'.join(strings))
+        strings = print_information(self.arch2infos_less[index])
+        print('>' * 40 + ' {:03d} epochs '.format(self.arch2infos_less[index].get_total_epoch()) + '>' * 40)
+        print('\n'.join(strings))
+        print('<' * 40 + '------------' + '<' * 40)
+      # else:
+      #   print('This index ({:}) is out of range (0~{:}).'.format(index, len(self.meta_archs)))
 
   def statistics(self, dataset: Text, use_12epochs_result: bool) -> Dict[int, int]:
     """
@@ -536,7 +536,7 @@ class ArchResults(object):
     for result in results:
       time_info = result.get_times()
       for key, value in time_info.items(): time_infos[key].append( value )
-     
+
     info = {'flops'  : np.mean(flops),
             'params' : np.mean(params),
             'latency': mean_latency}
@@ -656,7 +656,7 @@ class ArchResults(object):
     for seed in self.dataset_seed[dataset]:
       latency = self.all_results[(dataset, seed)].get_latency()
       if not isinstance(latency, float) or latency <= 0:
-        raise ValueError('invalid latency of {:} for {:} with {:}'.format(dataset))
+        raise ValueError('invalid latency of {:} for {:} with {:}'.format(dataset, latency, type(latency)))
       latencies.append(latency)
     return sum(latencies) / len(latencies)
 
@@ -851,7 +851,7 @@ class ResultsCount(object):
         xtimes = [self.eval_times['{:}@{:}'.format(name,i)] for i in range(self.epochs)]
         time_info['T-{:}@epoch'.format(name)] = np.mean(xtimes)
         time_info['T-{:}@total'.format(name)] = np.sum(xtimes)
-      except:
+      except Exception:
         time_info['T-{:}@epoch'.format(name)] = None
         time_info['T-{:}@total'.format(name)] = None
     return time_info

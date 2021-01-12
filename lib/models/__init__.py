@@ -22,7 +22,7 @@ def get_cell_based_tiny_net(config):
         from .cell_searchs import nas201_super_nets as nas_super_nets
         try:
             return nas_super_nets[config.name](config.C, config.N, config.max_nodes, config.num_classes, config.space, config.affine, config.track_running_stats, config.depth, config.use_stem)
-        except:
+        except Exception:
             return nas_super_nets[config.name](config.C, config.N, config.max_nodes, config.num_classes, config.space, config.depth, config.use_stem)
     elif super_type == 'nasnet-super':
         from .cell_searchs import nasnet_super_nets as nas_super_nets

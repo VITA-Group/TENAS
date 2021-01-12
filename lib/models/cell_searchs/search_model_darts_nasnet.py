@@ -112,7 +112,7 @@ class NASNetworkDARTS(nn.Module):
             s0 = s1 = inputs
         for i, cell in enumerate(self.cells):
             if cell.reduction: ww, aa = reduce_w, reduce_a
-            else             : ww, aa = normal_w, reduce_a
+            else             : ww, aa = normal_w, normal_a
             s0, s1 = s1, cell.forward_darts(s0, s1, ww, aa)
         out = self.lastact(s1)
         out = self.global_pooling(out)
