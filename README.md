@@ -1,6 +1,6 @@
 # Neural Architecture Search on ImageNet in Four GPU Hours: A Theoretically Inspired Perspective [[PDF](https://openreview.net/pdf?id=Cnon5ezMHtu)]
 
-<!--[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/TAMU-VITA/FasterSeg.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/TAMU-VITA/FasterSeg/context:python)-->
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/VITA-Group/TENAS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VITA-Group/TENAS/context:python)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
 Wuyang Chen, Xinyu Gong, Zhangyang Wang
