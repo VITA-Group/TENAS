@@ -83,15 +83,13 @@ class NASNetworkDARTS(nn.Module):
         def _parse(weights):
             gene = []
             for i in range(self._steps):
-                edges = []
-                for j in range(2+i):
-                    node_str = '{:}<-{:}'.format(i, j)
-                    ws = weights[ self.edge2index[node_str] ]
-                    for k, op_name in enumerate(self.op_names):
-                        if op_name == 'none': continue
-                        edges.append( (op_name, j, ws[k]) )
-                edges = sorted(edges, key=lambda x: -x[-1])
-                selected_edges = [edge[:2] for edge in edges[:2]]  # only keep op_name and j
+                selected_edges = []
+                _edge_indice = sorted(range(i + 2), key=lambda x: -max(weights[x][k] for k in range(len(weights[x])) if k != self.op_names.index('none')))[:2]
+                for _edge_index in _edge_indice:
+                    _op_indice = list(range(weights.shape[1]))
+                    _op_indice.remove(self.op_names.index('none'))
+                    _op_index = sorted(_op_indice, key=lambda x: -weights[_edge_index][x])[0]
+                    selected_edges.append( (self.op_name[_op_index], _edge_index) )
                 gene += selected_edges
             return gene
         with torch.no_grad():

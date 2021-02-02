@@ -90,7 +90,7 @@ python prune_launch.py --space darts --dataset imagenet-1k --gpu 0
 ```
 @inproceedings{chen2020tenas,
   title={Neural Architecture Search on ImageNet in Four GPU Hours: A Theoretically Inspired Perspective},
-  authors={Chen, Wuyang and Gong, Xinyu and Wang, Zhangyang},
+  author={Chen, Wuyang and Gong, Xinyu and Wang, Zhangyang},
   booktitle={International Conference on Learning Representations},
   year={2021}
 }
