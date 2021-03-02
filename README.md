@@ -1,4 +1,4 @@
-# Neural Architecture Search on ImageNet in Four GPU Hours: A Theoretically Inspired Perspective [[PDF](https://openreview.net/pdf?id=Cnon5ezMHtu)]
+# Neural Architecture Search on ImageNet in Four GPU Hours: A Theoretically Inspired Perspective [[PDF](https://arxiv.org/pdf/2102.11535.pdf)]
 
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/VITA-Group/TENAS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VITA-Group/TENAS/context:python)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
