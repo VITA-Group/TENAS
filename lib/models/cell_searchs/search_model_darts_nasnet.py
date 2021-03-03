@@ -89,7 +89,7 @@ class NASNetworkDARTS(nn.Module):
                     _op_indice = list(range(weights.shape[1]))
                     _op_indice.remove(self.op_names.index('none'))
                     _op_index = sorted(_op_indice, key=lambda x: -weights[_edge_index][x])[0]
-                    selected_edges.append( (self.op_name[_op_index], _edge_index) )
+                    selected_edges.append( (self.op_names[_op_index], _edge_index) )
                 gene += selected_edges
             return gene
         with torch.no_grad():
