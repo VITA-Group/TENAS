@@ -128,12 +128,12 @@ class LinearRegionCount(object):
 
     @torch.no_grad()
     def calc_LR(self):
-        res = torch.matmul(self.activations.half(), (1-self.activations).T.half())
-        res += res.T
-        res = 1 - torch.sign(res)
-        res = res.sum(1)
-        res = 1. / res.float()
-        self.n_LR = res.sum().item()
+        res = torch.matmul(self.activations.half(), (1-self.activations).T.half()) # each element in res: A * (1 - B)
+        res += res.T # make symmetric, each element in res: A * (1 - B) + (1 - A) * B, a non-zero element indicate a pair of two different linear regions
+        res = 1 - torch.sign(res) # a non-zero element now indicate two linear regions are identical
+        res = res.sum(1) # for each sample's linear region: how many identical regions from other samples
+        res = 1. / res.float() # contribution of each redudant (repeated) linear region
+        self.n_LR = res.sum().item() # sum of unique regions (by aggregating contribution of all regions)
         del self.activations, res
         self.activations = None
         torch.cuda.empty_cache()
