@@ -82,15 +82,19 @@ class NASNetworkDARTS(nn.Module):
     def genotype(self) -> Dict[Text, List]:
         def _parse(weights):
             gene = []
+            n = 2; start = 0
             for i in range(self._steps):
+                end = start + n
+                W = weights[start:end].copy()
                 selected_edges = []
-                _edge_indice = sorted(range(i + 2), key=lambda x: -max(weights[x][k] for k in range(len(weights[x])) if k != self.op_names.index('none')))[:2]
+                _edge_indice = sorted(range(i + 2), key=lambda x: -max(W[x][k] for k in range(len(W[x])) if k != self.op_names.index('none')))[:2]
                 for _edge_index in _edge_indice:
-                    _op_indice = list(range(weights.shape[1]))
+                    _op_indice = list(range(W.shape[1]))
                     _op_indice.remove(self.op_names.index('none'))
-                    _op_index = sorted(_op_indice, key=lambda x: -weights[_edge_index][x])[0]
+                    _op_index = sorted(_op_indice, key=lambda x: -W[_edge_index][x])[0]
                     selected_edges.append( (self.op_names[_op_index], _edge_index) )
                 gene += selected_edges
+                start = end; n += 1
             return gene
         with torch.no_grad():
             gene_normal = _parse(torch.softmax(self.arch_normal_parameters, dim=-1).cpu().numpy())
